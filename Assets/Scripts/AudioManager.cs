@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-	public AudioSource nAudioSource;
-
 	public MyParamsAudio GetParams(Vector2 v2SourceLoc, Vector2 v2TargetLoc, float nGridLengthX, float nGridLengthY)
 	{
 		// Default Var, can change
@@ -38,7 +36,7 @@ public class AudioManager : MonoBehaviour
 		return nParamAudio;
 	}
 
-	public void AudioPlay(float nPan = 0, float nPitch = 1, float nDelay = 0, float nVol = 1)
+	public void AudioPlay(AudioSource nAudioSource, float nPan = 0, float nPitch = 1, float nDelay = 0, float nVol = 1)
 	{
 		nAudioSource.panStereo = nPan;
 		nAudioSource.volume = nVol;
@@ -47,7 +45,7 @@ public class AudioManager : MonoBehaviour
 		nAudioSource.PlayDelayed(nDelay);
 	}
 
-	public void AudioPlay(MyParamsAudio nParams)
+	public void AudioPlay(AudioSource nAudioSource, MyParamsAudio nParams)
 	{
 		float nPan = nParams.Pan;
 		float nPitch = nParams.Pitch;
