@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212354341557325478}
   - component: {fileID: 114193965454973628}
   - component: {fileID: 82171431245279990}
-  - component: {fileID: 114701867136068956}
   m_Layer: 0
   m_Name: Sonobouy
   m_TagString: Untagged
@@ -49,11 +48,11 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1468178460296512}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 46b58d0e2b6804ea6bb7fcd2b25eb440, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -110,7 +109,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -129,20 +128,9 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1468178460296512}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56796f25482a249e2a39460d3c1bdbf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114701867136068956
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1468178460296512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38be81721e53fcc469bd88194668b92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212354341557325478
