@@ -12,8 +12,7 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
 	private static GameManager instance = null;
-
-	private List<GameObject> sonobouyList = new List<GameObject>();
+	private BoardManager board;
 
 	[SerializeField]
 	private GameState gameState;
@@ -23,6 +22,19 @@ public class GameManager : MonoBehaviour
 		get
 		{
 			return instance;
+		}
+	}
+
+	public BoardManager Board
+	{
+		get
+		{
+			return board;
+		}
+
+		private set
+		{
+			board = value;
 		}
 	}
 
@@ -51,6 +63,8 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
+		board = GetComponent<BoardManager>();
+
 		DontDestroyOnLoad(transform.gameObject);
 	}
 
@@ -67,18 +81,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void AddSonobouy(GameObject newSonobouy)
+	private void StartNewGame()
 	{
-		sonobouyList.Add(newSonobouy);
-	}
-
-	public void DestroySonobouys()
-	{
-		for (int i = 0; i < sonobouyList.Count; i++)
-		{
-			var sonoBouy = sonobouyList[i];
-			sonobouyList.RemoveAt(i);
-			Destroy(sonoBouy);
-		}
+		Board.ResetBoard();
 	}
 }

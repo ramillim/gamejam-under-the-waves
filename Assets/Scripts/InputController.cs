@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-	public GameObject sonobouyPrefab;
-	public GameObject objectContainer;
+	private BoardManager board;
+
+	void Start()
+	{
+		board = GameManager.Instance.Board;
+	}
+
 
 	void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			GameManager.Instance.DestroySonobouys();
-			PlaceSensor(Input.mousePosition);
+			board.PlaceSensor(Input.mousePosition);
 		}
 	}
 
-	private void PlaceSensor(Vector2 mousePosition)
-	{
-		Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-		GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-		GameManager.Instance.AddSonobouy(newSonobouy);
-		newSonobouy.transform.SetParent(objectContainer.transform);
-	}
+
 }
