@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60491943174c43b38d5ddc5bc87378b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sonarPrefab: {fileID: 1468178460296512, guid: bd1c104afe9774509b7a262a66ea1650,
+  sonobouyPrefab: {fileID: 1468178460296512, guid: bd1c104afe9774509b7a262a66ea1650,
     type: 2}
   objectContainer: {fileID: 1492474157}
 --- !u!1 &770167105
@@ -423,7 +423,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -12.25
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -754,7 +754,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -22.875
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -764,7 +764,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 35.75
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -808,6 +808,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 59c8086ac621248faaf6dc0a60785ff2, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1644872257 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114602151399101324, guid: 59c8086ac621248faaf6dc0a60785ff2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1644872256}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1644872258 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1208479624781626, guid: 59c8086ac621248faaf6dc0a60785ff2,
@@ -942,7 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceText: {fileID: 1342849321}
-  directionText: {fileID: 1990680794}
+  directionText: {fileID: 1644872257}
 --- !u!4 &1797882242 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4616110919381222, guid: b36a2803c6f7245c0b10276de7a72fac,
@@ -1065,7 +1071,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -22.875
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -1075,7 +1081,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 35.75
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -1202,7 +1208,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -12.25
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -1289,9 +1295,3 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
---- !u!114 &1990680794 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114602151399101324, guid: 59c8086ac621248faaf6dc0a60785ff2,
-    type: 2}
-  m_PrefabInternal: {fileID: 1990680790}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
