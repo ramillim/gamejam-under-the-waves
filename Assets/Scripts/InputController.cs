@@ -14,11 +14,11 @@ public class InputController : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			board.PlaceSensor(Input.mousePosition);
+		if (GameManager.Instance.GameState == GameState.Game){
+			if (Input.GetMouseButtonDown(0))
+			{
+				board.PlaceSensor(Input.mousePosition);
+			}
 		}
 	}
-
-
 }

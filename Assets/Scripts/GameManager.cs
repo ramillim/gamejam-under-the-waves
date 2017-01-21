@@ -68,6 +68,11 @@ public class GameManager : MonoBehaviour
 		DontDestroyOnLoad(transform.gameObject);
 	}
 
+	void Start()
+	{
+		StartNewGame();
+	}
+
 	void Update()
 	{
 		switch (gameState)
@@ -83,6 +88,7 @@ public class GameManager : MonoBehaviour
 
 	private void StartNewGame()
 	{
+		GameState = GameState.Game;
 		Board.ResetBoard();
 	}
 }

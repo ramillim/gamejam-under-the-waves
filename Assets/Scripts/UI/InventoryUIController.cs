@@ -8,11 +8,8 @@ public class InventoryUIController : MonoBehaviour
 	public Text sonobouyCount;
 	public Text depthChargesCount;
 
-	private BoardManager board;
-
-	void Start()
+	void Awake()
 	{
-		board = GameManager.Instance.Board;
 		Messenger.AddListener(GameEvent.ItemCountChanged, RefreshCounts);
 	}
 
@@ -23,7 +20,7 @@ public class InventoryUIController : MonoBehaviour
 
 	private void RefreshCounts()
 	{
-		sonobouyCount.text = board.SonobouysRemaining.ToString();
-		depthChargesCount.text = board.DepthChargesRemaining.ToString();
+		sonobouyCount.text = GameManager.Instance.Board.ToString();
+		depthChargesCount.text = GameManager.Instance.Board.ToString();
 	}
 }

@@ -90,10 +90,9 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 
-	// Use this for initialization
 	void Start()
 	{
-		ResetBoard();
+		SonobouysRemaining = MaxSonobouys;
         nMAudio = nGOaudioManager.GetComponent<AudioManager>();
 	}
 
@@ -102,9 +101,9 @@ public class BoardManager : MonoBehaviour
 	/// </summary>
 	public void ResetBoard()
 	{
+		SonobouysRemaining = MaxSonobouys;
 		DestroySonobouys();
 		PlaceSubmarine();
-		SonobouysRemaining = MaxSonobouys;
 		Messenger.Broadcast(GameEvent.ItemCountChanged);
 	}
 
