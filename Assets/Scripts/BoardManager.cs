@@ -20,6 +20,11 @@ public class BoardManager : MonoBehaviour
 	private int depthChargesRemaining;
 	private List<GameObject> sonobouyList = new List<GameObject>();
 
+    Vector2 nLocSubmarine;
+    private AudioManager nMAudio;
+    public GameObject nGOaudioManager;
+
+
 	public List<GameObject> SonobouyList
 	{
 		get
@@ -89,6 +94,7 @@ public class BoardManager : MonoBehaviour
 	void Start()
 	{
 		ResetBoard();
+        nMAudio = nGOaudioManager.GetComponent<AudioManager>();
 	}
 
 	/// <summary>
@@ -118,6 +124,13 @@ public class BoardManager : MonoBehaviour
 			newSonobouy.transform.SetParent(objectContainer.transform);
 			sonobouysRemaining--;
 			Messenger.Broadcast(GameEvent.ItemCountChanged);
+
+			MyParamsAudio nParams = nMAudio.GetParams(
+				screenPosition, nLocSubmarine,
+			    maxBoardLimit - minBoardLimit,
+			    maxBoardLimit - minBoardLimit);
+			nMAudio.PlayAudio1(nParams.Pan, 0, 0, 1);
+			nMAudio.PlayAudio2(nParams, nParams.Delay);
 		}
 		else
 		{
@@ -127,8 +140,8 @@ public class BoardManager : MonoBehaviour
 
 	private void PlaceSubmarine()
 	{
-		var startingPosition = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
-		Instantiate(submarinePrefab, startingPosition, Quaternion.identity);
+		nLocSubmarine = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
+        Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
 	}
 
 	private void DestroySonobouys()
