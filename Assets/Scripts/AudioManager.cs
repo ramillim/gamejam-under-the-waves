@@ -18,19 +18,21 @@ public class AudioManager : MonoBehaviour {
 		
 	}
 
-    public MyParamsAudio GetParams(Vector2 v2SourceLoc, Vector2 v3TargetLoc, float nGridLengthX, float nGridLengthY)
+    public MyParamsAudio GetParams(Vector2 v2SourceLoc, Vector2 v2TargetLoc, float nGridLengthX, float nGridLengthY)
     {
         // Default Var, can change
         float nDelayScalar = 5;
         float nPitchDefault = 5;
         float nPitchDelta = (float) 0.1;
+        float nMaxVol = (float) 1.0;
+        float nMinVol = (float) 0;
 
         // Storing Source Var
         float nSourceX = v2SourceLoc.x;
         float nSourceY = v2SourceLoc.y;
 
-        float nTargetX = v3TargetLoc.x;
-        float nTargetY = v3TargetLoc.y;
+        float nTargetX = v2TargetLoc.x;
+        float nTargetY = v2TargetLoc.y;
 
         // Finding Deltas
         float nDeltaX = nTargetX - nSourceX;
@@ -43,6 +45,7 @@ public class AudioManager : MonoBehaviour {
         nParamAudio.Pan = nDeltaX / nGridLengthX;
         nParamAudio.Delay = nDelayScalar* (nDistance / nGridMaxLength);
         nParamAudio.Pitch = nPitchDefault + nPitchDelta*(nDeltaY/nGridLengthY);
+        nParamAudio.Volume = nMaxVol - (nMaxVol-nMinVol)*(nDistance/nGridMaxLength);
 
         return nParamAudio;
     }
