@@ -13,6 +13,14 @@ public class BoardManager : MonoBehaviour
 
 	private List<GameObject> sonobouyList = new List<GameObject>();
 
+    // Jon Added
+    //public AudioClip nSoundPing;
+    //public AudioClip nSoundEcho;
+    Vector2 nLocSubmarine;
+    private AudioManager nMAudio;
+    public GameObject nGOaudioManager;
+
+
 	public List<GameObject> SonobouyList
 	{
 		get
@@ -30,6 +38,7 @@ public class BoardManager : MonoBehaviour
 	void Start()
 	{
 		ResetBoard();
+        nMAudio = nGOaudioManager.GetComponent<AudioManager>();
 	}
 
 	/// <summary>
@@ -52,13 +61,18 @@ public class BoardManager : MonoBehaviour
 		Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 		GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
 		GameManager.Instance.Board.AddSonobouy(newSonobouy);
-		newSonobouy.transform.SetParent(objectContainer.transform);
-	}
+        newSonobouy.transform.SetParent(objectContainer.transform);
+
+        // Playing Audio
+        MyParamsAudio nParams =  nMAudio.GetParams(screenPosition, nLocSubmarine, maxBoardLimit - minBoardLimit, maxBoardLimit - minBoardLimit);
+        nMAudio.PlayAudio1(nParams.Pan,0,0,1);
+        nMAudio.PlayAudio2(nParams, nParams.Delay);
+	}   
 
 	private void PlaceSubmarine()
 	{
-		var startingPosition = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
-		Instantiate(submarinePrefab, startingPosition, Quaternion.identity);
+		nLocSubmarine = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
+        Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
 	}
 
 	private void DestroySonobouys()
