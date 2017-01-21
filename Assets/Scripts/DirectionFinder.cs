@@ -9,23 +9,23 @@ public class DirectionFinder : MonoBehaviour
 	public Text distanceText;
 	public Text directionText;
 
-	// Use this for initialization
 	void Start()
 	{
 		target = GameObject.FindWithTag("Target");
 
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		var targetPos = target.transform.position;
-
-		var heading = targetPos - transform.position;
+		Vector2 heading = targetPos - transform.position;
 		var distance = heading.magnitude;
-		var direction = heading / distance;
-		distanceText.text = distance.ToString();
-		directionText.text = direction.ToString();
+		UpdateDebug(distance, heading);
+	}
 
+	private void UpdateDebug(float distance, Vector2 heading)
+	{
+		distanceText.text = distance.ToString();
+		directionText.text = heading.ToString();
 	}
 }
