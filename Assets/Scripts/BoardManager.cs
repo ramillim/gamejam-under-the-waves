@@ -6,16 +6,20 @@ public class BoardManager : MonoBehaviour
 {
 	public float minBoardLimit = -4.8f;
 	public float maxBoardLimit = 4.8f;
-
 	public GameObject sonobouyPrefab;
 	public GameObject submarinePrefab;
 	public GameObject objectContainer;
 
+	[SerializeField]
+	private int maxDepthCharges = 3;
+
+	[SerializeField]
+	private int maxSonobouys = 10;
+
+	private int sonobouysRemaining;
+	private int depthChargesRemaining;
 	private List<GameObject> sonobouyList = new List<GameObject>();
 
-    // Jon Added
-    //public AudioClip nSoundPing;
-    //public AudioClip nSoundEcho;
     Vector2 nLocSubmarine;
     private AudioManager nMAudio;
     public GameObject nGOaudioManager;
@@ -34,10 +38,61 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 
-	// Use this for initialization
+	public int MaxDepthCharges
+	{
+		get
+		{
+			return maxDepthCharges;
+		}
+
+		set
+		{
+			maxDepthCharges = value;
+		}
+	}
+
+	public int MaxSonobouys
+	{
+		get
+		{
+			return maxSonobouys;
+		}
+
+		set
+		{
+			maxSonobouys = value;
+		}
+	}
+
+	public int DepthChargesRemaining
+	{
+		get
+		{
+			return depthChargesRemaining;
+		}
+
+		set
+		{
+			depthChargesRemaining = value;
+		}
+	}
+
+	public int SonobouysRemaining
+	{
+		get
+		{
+			return sonobouysRemaining;
+		}
+
+		private set
+		{
+			sonobouysRemaining = value;
+		}
+	}
+
 	void Start()
 	{
-		ResetBoard();
+		SonobouysRemaining = MaxSonobouys;
         nMAudio = nGOaudioManager.GetComponent<AudioManager>();
 	}
 
@@ -46,8 +101,10 @@ public class BoardManager : MonoBehaviour
 	/// </summary>
 	public void ResetBoard()
 	{
+		SonobouysRemaining = MaxSonobouys;
 		DestroySonobouys();
 		PlaceSubmarine();
+		Messenger.Broadcast(GameEvent.ItemCountChanged);
 	}
 
 	public void AddSonobouy(GameObject newSonobouy)
@@ -57,17 +114,28 @@ public class BoardManager : MonoBehaviour
 
 	public void PlaceSensor(Vector2 mousePosition)
 	{
-		DestroySonobouys();
-		Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-		GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-		GameManager.Instance.Board.AddSonobouy(newSonobouy);
-        newSonobouy.transform.SetParent(objectContainer.transform);
+		if (SonobouysRemaining > 0)
+		{
+			DestroySonobouys();
+			Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+			GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
+			GameManager.Instance.Board.AddSonobouy(newSonobouy);
+			newSonobouy.transform.SetParent(objectContainer.transform);
+			sonobouysRemaining--;
+			Messenger.Broadcast(GameEvent.ItemCountChanged);
 
-        // Playing Audio
-        MyParamsAudio nParams =  nMAudio.GetParams(screenPosition, nLocSubmarine, maxBoardLimit - minBoardLimit, maxBoardLimit - minBoardLimit);
-        nMAudio.PlayAudio1(nParams.Pan,0,0,1);
-        nMAudio.PlayAudio2(nParams, nParams.Delay);
-	}   
+			MyParamsAudio nParams = nMAudio.GetParams(
+				screenPosition, nLocSubmarine,
+			    maxBoardLimit - minBoardLimit,
+			    maxBoardLimit - minBoardLimit);
+			nMAudio.PlayAudio1(nParams.Pan, 0, 0, 1);
+			nMAudio.PlayAudio2(nParams, nParams.Delay);
+		}
+		else
+		{
+			// Play Empty Sound
+		}
+	}
 
 	private void PlaceSubmarine()
 	{

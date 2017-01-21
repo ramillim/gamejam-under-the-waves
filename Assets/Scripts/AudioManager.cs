@@ -11,13 +11,9 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        //nAudioSource = this.GetComponent<AudioSource>();
         nAudioSource1 = nGOAudio1.GetComponent<AudioSource>();
         nAudioSource2 = nGOAudio2.GetComponent<AudioSource>();
-    }
-
-    
-    
+    }    
 
     public MyParamsAudio GetParams(Vector2 v2SourceLoc, Vector2 v2TargetLoc, float nGridLengthX, float nGridLengthY)
 	{
@@ -93,12 +89,10 @@ public class AudioManager : MonoBehaviour
 		nAudioSource.volume = nVol;
 		//nAudioSource.pitch = nPitch;
 
-        Debug.Log(string.Format("Pan {0}, Pitch {1}, Delay {2}, Volume {3}",nPan,nPitch, nDelay,nVol));
+        //Debug.Log(string.Format("Pan {0}, Pitch {1}, Delay {2}, Volume {3}",nPan,nPitch, nDelay,nVol));
 
-        nAudioSource.PlayDelayed(nDelay); //nDelay);
+        nAudioSource.PlayDelayed(nDelay);
 	}
-
-
 }
 
 public class MyParamsAudio
