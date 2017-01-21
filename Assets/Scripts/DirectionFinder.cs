@@ -49,5 +49,4 @@ public class DirectionFinder : MonoBehaviour
 		var audioParams = audioManager.GetParams(sourceVector, targetVector, 9.6f, 9.6f);
 		audioManager.AudioPlay(audioSource, audioParams);
 	}
-
 }
