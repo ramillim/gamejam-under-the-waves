@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +20,8 @@ public class InventoryUIController : MonoBehaviour
 
 	private void RefreshCounts()
 	{
-		sonobouyCount.text = GameManager.Instance.Board.ToString();
-		depthChargesCount.text = GameManager.Instance.Board.ToString();
+        var board = GameManager.Instance.Board;
+        sonobouyCount.text = board.SonobouysRemaining.ToString();
+        depthChargesCount.text = board.DepthChargesRemaining.ToString();
 	}
 }
