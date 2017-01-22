@@ -83,32 +83,12 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject);
 
         Messenger.AddListener(GameEvent.SubmarineHit, OnGameOver);
+        Messenger.AddListener(GameEvent.GameLost, OnGameOver);
     }
 
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.SubmarineHit, OnGameOver);
-    }
-
-    void Update()
-    {
-        switch (gameState)
-        {
-            case GameState.Title:
-                break;
-            case GameState.Instructions:
-                break;
-            case GameState.Game:
-                if (IsGameOver())
-                {
-                    OnGameOver();
-                }
-                break;
-            case GameState.GameEndAnimation:
-                break;
-            case GameState.GameOver:
-                break;
-        }
     }
 
     public void SetBoardManager(BoardManager boardManager)
@@ -129,33 +109,20 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync("Game");
     }
 
-    private bool IsGameOver()
-    {
-        if (Board && Board.DepthChargesRemaining <= 0) // TODO: Implement other game over conditions
-        {
-            Debug.Log("Game Over");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     private void OnGameOver()
     {
+        Debug.Log("Game Over");
         if (Board.Submarine.GetComponent<Submarine>().IsHit)
         {
-            Debug.Log("Win");
             IsWon = true;
+            EndGame();
         }
         else
         {
-            Debug.Log("Lose");
             IsWon = false;
+            LoadGameOverScreen();
         }
 
-        EndGame();
     }
 
     private void EndGame()

@@ -187,7 +187,7 @@ public class BoardManager : MonoBehaviour
 
         if (IsHit(screenPosition, nLocSubmarine, nRadiusDefault))
         {
-            nMAudio.AudioPlay(AudioManager.AudioType.SubKill, 0, 1,1);
+            nMAudio.AudioPlay(AudioManager.AudioType.SubKill, 0, 1, 1);
             Submarine.GetComponent<Submarine>().RecordHit();
             Instantiate(hitPrefab, nLocSubmarine, Quaternion.identity);
             Messenger.Broadcast(GameEvent.SubmarineHit);
@@ -195,6 +195,11 @@ public class BoardManager : MonoBehaviour
         else
         {
             Instantiate(missPrefab, screenPosition, Quaternion.identity);
+
+            if (DepthChargesRemaining == 0)
+            {
+                Messenger.Broadcast(GameEvent.GameLost);
+            }
         }
     }
 

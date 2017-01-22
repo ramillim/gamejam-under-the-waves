@@ -72,12 +72,10 @@ public class InputController : MonoBehaviour
 
             if (holdTime > depthChargeHoldButtonDuration)
             {
-                Debug.Log("Fire depth charge " + holdTime);
                 GameManager.Instance.Board.FireDepthCharge(Input.mousePosition);
             }
             else
             {
-                Debug.Log("Fire sonobouy " + holdTime);
                 GameManager.Instance.Board.PlaceSensor(Input.mousePosition);
             }
 
@@ -89,7 +87,6 @@ public class InputController : MonoBehaviour
                  (Time.time - buttonPressTime > minHoldTimeForChargingSound))
         {
             isCharging = true;
-            Debug.Log("Play charging sound");
             // Play Sound here
         }
     }
