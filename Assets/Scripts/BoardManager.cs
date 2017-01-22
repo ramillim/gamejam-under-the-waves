@@ -165,6 +165,7 @@ public class BoardManager : MonoBehaviour
     {
         nLocSubmarine = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
         Submarine = Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
+		Submarine.transform.SetParent(transform);
     }
 
     public void FireDepthCharge(Vector2 mousePosition)

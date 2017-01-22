@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Submarine : MonoBehaviour
 {
+	[SerializeField]
 	private bool isHit = false;
 
 	public bool IsHit

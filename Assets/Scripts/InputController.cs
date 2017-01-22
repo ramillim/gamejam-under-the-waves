@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    private BoardManager board;
     public float nClickDoubleTime = 0.8f;
-    public bool bClickChk;
-    public float nTimer;
+
+	private BoardManager board;
+	private Vector3 mousePosition;
+	private float nTimer;
+	private bool hasFirstClick;
 
     void Update()
     {
@@ -46,29 +48,31 @@ public class InputController : MonoBehaviour
 
     private void UpdateGame()
     {
-        if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0))
         {
-            if (bClickChk)
+			mousePosition = Input.mousePosition;
+
+			if (hasFirstClick)
             {
                 if (Time.time - nTimer <= nClickDoubleTime)
                 {
-                    GameManager.Instance.Board.FireDepthCharge(Input.mousePosition);
+                    GameManager.Instance.Board.FireDepthCharge(mousePosition);
                 }
             }
             else
             {
-                bClickChk = true;
+                hasFirstClick = true;
                 nTimer = Time.time;
             }
         }
 
         // Restting if second click past timer, and then doing single click action
-        if (bClickChk)
+        if (hasFirstClick)
         {
             if (Time.time - nTimer > nClickDoubleTime)
             {
-                bClickChk = false;
-                GameManager.Instance.Board.PlaceSensor(Input.mousePosition);
+                hasFirstClick = false;
+                GameManager.Instance.Board.PlaceSensor(mousePosition);
             }
         }
     }

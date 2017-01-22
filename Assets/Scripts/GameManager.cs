@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
     {
         if (Board && Board.DepthChargesRemaining <= 0) // TODO: Implement other game over conditions
         {
+			Debug.Log("Game Over");
             return true;
         }
         else
@@ -142,10 +143,12 @@ public class GameManager : MonoBehaviour
     {
         if (Board.Submarine.GetComponent<Submarine>().IsHit)
         {
+			Debug.Log("Win");
             IsWon = true;
         }
         else
         {
+			Debug.Log("Lose");
             IsWon = false;
         }
 
@@ -155,6 +158,6 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         GameState = GameState.GameOver;
-        SceneManager.LoadScene("Game Over");
+        SceneManager.LoadScene("GameOver");
     }
 }
