@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
 	private BoardManager board;
-    float nClickDoubleTime = 0.8f;
+    public float nClickDoubleTime = 0.8f;
     public bool bClickChk;
     public float nTimer;
 
