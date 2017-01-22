@@ -10,6 +10,8 @@ public class BoardManager : MonoBehaviour
 	public GameObject submarinePrefab;
 	public GameObject objectContainer;
 
+	private GameObject submarine;
+
 	[SerializeField]
 	private int maxDepthCharges = 3;
 
@@ -21,14 +23,16 @@ public class BoardManager : MonoBehaviour
 	private List<GameObject> sonobouyList = new List<GameObject>();
 
     // Audio
-    Vector2 nLocSubmarine;
-    private AudioManager nMAudio;
     public GameObject nGOaudioManager;
 
+	private Vector2 nLocSubmarine;
+    private AudioManager nMAudio;
+
     // Missile (Depth Charge)
-    float nRadiusDefault = 0.2f;
     public GameObject nPrefabMissile;
-    GameObject nMissile;
+	public float nRadiusDefault = 0.2f;
+
+	private GameObject nMissile;
 
     public List<GameObject> SonobouyList
 	{
@@ -95,6 +99,19 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 
+	public GameObject Submarine
+	{
+		get
+		{
+			return submarine;
+		}
+
+		private set
+		{
+			submarine = value;
+		}
+	}
+
 	void Start()
 	{
 		SonobouysRemaining = MaxSonobouys;
@@ -146,7 +163,7 @@ public class BoardManager : MonoBehaviour
 	private void PlaceSubmarine()
 	{
 		nLocSubmarine = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
-        Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
+        Submarine = Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
 	}
 
 	private void DestroySonobouys()
@@ -164,8 +181,9 @@ public class BoardManager : MonoBehaviour
         nMissile = Instantiate(nPrefabMissile, nLocSpawn, Quaternion.identity);
         Destroy(nMissile, 1.0f);
 
-        if (HitCheck(nLocSpawn, nLocSubmarine, nRadiusDefault))
+		if (HitCheck(nLocSpawn, nLocSubmarine, nRadiusDefault))
         {
+			Submarine.GetComponent<Submarine>.RecordHit();
             //GameOver();
         }
     }

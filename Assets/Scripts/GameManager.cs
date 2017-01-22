@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
 	Intro,
 	Game,
-	End
+	GameOver
 }
 
 public class GameManager : MonoBehaviour
 {
 	private static GameManager instance = null;
 	private BoardManager board;
+	private bool isWon = false;
 
 	[SerializeField]
 	private GameState gameState;
@@ -51,6 +53,19 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public bool IsWon
+	{
+		get
+		{
+			return isWon;
+		}
+
+		private set
+		{
+			isWon = value;
+		}
+	}
+
 	void Awake()
 	{
 		if (instance == null)
@@ -81,14 +96,31 @@ public class GameManager : MonoBehaviour
 				break;
 			case GameState.Game:
 				break;
-			case GameState.End:
+			case GameState.GameOver:
 				break;
 		}
 	}
 
-	private void StartNewGame()
+	public void StartNewGame()
 	{
 		GameState = GameState.Game;
+		SceneManager.LoadScene("Game");
 		Board.ResetBoard();
+	}
+
+	private void WinGame()
+	{
+		IsWon = true;
+	}
+
+	private void LoseGame()
+	{
+		IsWon = false;
+	}
+
+	private void EndGame()
+	{
+		GameState = GameState.GameOver;
+		SceneManager.LoadScene("Game Over");
 	}
 }
