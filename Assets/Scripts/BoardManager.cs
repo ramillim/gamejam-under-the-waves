@@ -8,6 +8,7 @@ public class BoardManager : MonoBehaviour
     public float maxBoardLimit = 4.8f;
     public GameObject sonobouyPrefab;
     public GameObject submarinePrefab;
+    public GameObject missPrefab;
 
     private GameObject submarine;
 
@@ -181,6 +182,10 @@ public class BoardManager : MonoBehaviour
         {
             Submarine.GetComponent<Submarine>().RecordHit();
             Messenger.Broadcast(GameEvent.SubmarineHit);
+        }
+        else
+        {
+            Instantiate(missPrefab, screenPosition, Quaternion.identity);
         }
     }
 

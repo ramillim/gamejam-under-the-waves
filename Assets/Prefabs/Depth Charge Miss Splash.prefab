@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4755807608312718}
   - component: {fileID: 212528695662664272}
   - component: {fileID: 95108971135704712}
+  - component: {fileID: 114594134177413328}
   m_Layer: 0
   m_Name: Depth Charge Miss Splash
   m_TagString: Untagged
@@ -58,6 +59,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114594134177413328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094807428132030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f98e2443012a459e87533310358918a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212528695662664272
 SpriteRenderer:
   m_ObjectHideFlags: 1

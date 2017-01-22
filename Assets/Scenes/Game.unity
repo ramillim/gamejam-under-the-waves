@@ -1424,6 +1424,7 @@ MonoBehaviour:
     type: 2}
   submarinePrefab: {fileID: 1788526000880774, guid: b36a2803c6f7245c0b10276de7a72fac,
     type: 2}
+  missPrefab: {fileID: 1094807428132030, guid: 24d9eb438fa854c2c8820ffa5721f701, type: 2}
   maxDepthCharges: 3
   maxSonobouys: 10
   nGOaudioManager: {fileID: 647076903}
@@ -1692,6 +1693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depthChargeHoldButtonDuration: 0.8
+  minHoldTimeForChargingSound: 0.3
 --- !u!1 &1791803429
 GameObject:
   m_ObjectHideFlags: 0
