@@ -1,94 +1,160 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
-	Intro,
-	Game,
-	End
+    Title,
+    Instructions,
+    Game,
+    GameOver
 }
 
 public class GameManager : MonoBehaviour
 {
-	private static GameManager instance = null;
-	private BoardManager board;
+    private static GameManager instance = null;
+    private BoardManager board;
+    private bool isWon = false;
 
-	[SerializeField]
-	private GameState gameState;
+    [SerializeField]
+    private GameState gameState;
 
-	public static GameManager Instance
-	{
-		get
-		{
-			return instance;
-		}
-	}
+    public static GameManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
-	public BoardManager Board
-	{
-		get
-		{
-			return board;
-		}
+    public BoardManager Board
+    {
+        get
+        {
+            return board;
+        }
 
-		private set
-		{
-			board = value;
-		}
-	}
+        private set
+        {
+            board = value;
+        }
+    }
 
-	public GameState GameState
-	{
-		get
-		{
-			return gameState;
-		}
+    public GameState GameState
+    {
+        get
+        {
+            return gameState;
+        }
 
-		private set
-		{
-			gameState = value;
-		}
-	}
+        private set
+        {
+            gameState = value;
+        }
+    }
 
-	void Awake()
-	{
-		if (instance == null)
-		{
-			instance = this;
-		}
-		else if (instance != this)
-		{
-			Destroy(gameObject);
-			return;
-		}
+    public bool IsWon
+    {
+        get
+        {
+            return isWon;
+        }
 
-		board = GetComponent<BoardManager>();
+        private set
+        {
+            isWon = value;
+        }
+    }
 
-		DontDestroyOnLoad(transform.gameObject);
-	}
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-	void Start()
-	{
-		StartNewGame();
-	}
+        DontDestroyOnLoad(transform.gameObject);
 
-	void Update()
-	{
-		switch (gameState)
-		{
-			case GameState.Intro:
-				break;
-			case GameState.Game:
-				break;
-			case GameState.End:
-				break;
-		}
-	}
+        Messenger.AddListener(GameEvent.SubmarineHit, OnGameOver);
+    }
 
-	private void StartNewGame()
-	{
-		GameState = GameState.Game;
-		Board.ResetBoard();
-	}
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.SubmarineHit, OnGameOver);
+    }
+
+    void Update()
+    {
+        switch (gameState)
+        {
+            case GameState.Title:
+                break;
+            case GameState.Instructions:
+                break;
+            case GameState.Game:
+                if (IsGameOver())
+                {
+                    OnGameOver();
+                }
+                break;
+            case GameState.GameOver:
+                break;
+        }
+    }
+
+    public void SetBoardManager(BoardManager boardManager)
+    {
+        Board = boardManager;
+    }
+
+    public void LoadInstructions()
+    {
+        GameState = GameState.Instructions;
+        SceneManager.LoadSceneAsync("Instructions");
+    }
+
+    public void StartNewGame()
+    {
+        IsWon = false;
+        GameState = GameState.Game;
+        SceneManager.LoadSceneAsync("Game");
+    }
+
+    private bool IsGameOver()
+    {
+        if (Board && Board.DepthChargesRemaining <= 0) // TODO: Implement other game over conditions
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void OnGameOver()
+    {
+        if (Board.Submarine.GetComponent<Submarine>().IsHit)
+        {
+            IsWon = true;
+        }
+        else
+        {
+            IsWon = false;
+        }
+
+        EndGame();
+    }
+
+    private void EndGame()
+    {
+        GameState = GameState.GameOver;
+        SceneManager.LoadScene("Game Over");
+    }
 }

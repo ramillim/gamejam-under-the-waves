@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,5 +53,4 @@ public class DebugController : MonoBehaviour
 		distanceText.text = distance.ToString();
 		directionText.text = heading.ToString();
 	}
-
 }

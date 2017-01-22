@@ -1,183 +1,201 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-	public float minBoardLimit = -4.8f;
-	public float maxBoardLimit = 4.8f;
-	public GameObject sonobouyPrefab;
-	public GameObject submarinePrefab;
-	public GameObject objectContainer;
+    public float minBoardLimit = -4.8f;
+    public float maxBoardLimit = 4.8f;
+    public GameObject sonobouyPrefab;
+    public GameObject submarinePrefab;
 
-	[SerializeField]
-	private int maxDepthCharges = 3;
+    private GameObject submarine;
 
-	[SerializeField]
-	private int maxSonobouys = 10;
+    [SerializeField]
+    private int maxDepthCharges = 3;
 
-	private int sonobouysRemaining;
-	private int depthChargesRemaining;
-	private List<GameObject> sonobouyList = new List<GameObject>();
+    [SerializeField]
+    private int maxSonobouys = 10;
+
+    private int sonobouysRemaining;
+    private int depthChargesRemaining;
+    private GameObject lastSonobouy;
+
 
     // Audio
-    Vector2 nLocSubmarine;
-    private AudioManager nMAudio;
     public GameObject nGOaudioManager;
 
+    private Vector2 nLocSubmarine;
+    private AudioManager nMAudio;
+
     // Missile (Depth Charge)
-    float nRadiusDefault = 0.2f;
     public GameObject nPrefabMissile;
-    GameObject nMissile;
+    public float nRadiusDefault = 0.2f;
 
-    public List<GameObject> SonobouyList
-	{
-		get
-		{
-			return sonobouyList;
-		}
+    private GameObject depthCharge;
 
-		set
-		{
-			sonobouyList = value;
-		}
-	}
-
-	public int MaxDepthCharges
-	{
-		get
-		{
-			return maxDepthCharges;
-		}
-
-		set
-		{
-			maxDepthCharges = value;
-		}
-	}
-
-	public int MaxSonobouys
-	{
-		get
-		{
-			return maxSonobouys;
-		}
-
-		set
-		{
-			maxSonobouys = value;
-		}
-	}
-
-	public int DepthChargesRemaining
-	{
-		get
-		{
-			return depthChargesRemaining;
-		}
-
-		set
-		{
-			depthChargesRemaining = value;
-		}
-	}
-
-	public int SonobouysRemaining
-	{
-		get
-		{
-			return sonobouysRemaining;
-		}
-
-		private set
-		{
-			sonobouysRemaining = value;
-		}
-	}
-
-	void Start()
-	{
-		SonobouysRemaining = MaxSonobouys;
-        nMAudio = nGOaudioManager.GetComponent<AudioManager>();
-        //nRadiusDefault = 0.2f;
-    }
-
-	/// <summary>
-	/// Initialize the board at the start of a new game.
-	/// </summary>
-	public void ResetBoard()
-	{
-		SonobouysRemaining = MaxSonobouys;
-		DestroySonobouys();
-		PlaceSubmarine();
-		Messenger.Broadcast(GameEvent.ItemCountChanged);
-	}
-
-	public void AddSonobouy(GameObject newSonobouy)
-	{
-		SonobouyList.Add(newSonobouy);
-	}
-
-	public void PlaceSensor(Vector2 mousePosition)
-	{
-		if (SonobouysRemaining > 0)
-		{
-			DestroySonobouys();
-			Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-			GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-			GameManager.Instance.Board.AddSonobouy(newSonobouy);
-			newSonobouy.transform.SetParent(objectContainer.transform);
-			sonobouysRemaining--;
-			Messenger.Broadcast(GameEvent.ItemCountChanged);
-
-			MyParamsAudio nParams = nMAudio.GetParams(
-				screenPosition, nLocSubmarine,
-			    maxBoardLimit - minBoardLimit,
-			    maxBoardLimit - minBoardLimit);
-			nMAudio.PlayAudio1(nParams.Pan, 0, 0, 1);
-			nMAudio.PlayAudio2(nParams, nParams.Delay);
-		}
-		else
-		{
-			// Play Empty Sound
-		}
-	}
-
-	private void PlaceSubmarine()
-	{
-		nLocSubmarine = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
-        Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
-	}
-
-	private void DestroySonobouys()
-	{
-		for (int i = 0; i < SonobouyList.Count; i++)
-		{
-			var sonoBouy = SonobouyList[i];
-			SonobouyList.RemoveAt(i);
-			Destroy(sonoBouy);
-		}
-	}
-
-    public void SpawnMissile(Vector2 nLocSpawn)
+    public int MaxDepthCharges
     {
-        nMissile = Instantiate(nPrefabMissile, nLocSpawn, Quaternion.identity);
-        Destroy(nMissile, 1.0f);
-
-        if (HitCheck(nLocSpawn, nLocSubmarine, nRadiusDefault))
+        get
         {
-            //GameOver();
+            return maxDepthCharges;
+        }
+
+        set
+        {
+            maxDepthCharges = value;
         }
     }
 
-    public bool HitCheck(Vector2 nLocSpawn, Vector2 nLocTarget, float nRadius = 0)
+    public int MaxSonobouys
+    {
+        get
+        {
+            return maxSonobouys;
+        }
+
+        set
+        {
+            maxSonobouys = value;
+        }
+    }
+
+    public int DepthChargesRemaining
+    {
+        get
+        {
+            return depthChargesRemaining;
+        }
+
+        set
+        {
+            depthChargesRemaining = value;
+        }
+    }
+
+    public int SonobouysRemaining
+    {
+        get
+        {
+            return sonobouysRemaining;
+        }
+
+        private set
+        {
+            sonobouysRemaining = value;
+        }
+    }
+
+    public GameObject Submarine
+    {
+        get
+        {
+            return submarine;
+        }
+
+        private set
+        {
+            submarine = value;
+        }
+    }
+
+
+    void Awake()
+    {
+        nMAudio = nGOaudioManager.GetComponent<AudioManager>();
+        GameManager.Instance.SetBoardManager(this);
+    }
+
+    void Start()
+    {
+        ResetBoard();
+    }
+
+    /// <summary>
+    /// Initialize the board at the start of a new game.
+    /// </summary>
+    public void ResetBoard()
+    {
+        if (lastSonobouy)
+        {
+            Destroy(lastSonobouy);
+        }
+
+        if (Submarine)
+        {
+            Destroy(Submarine);
+        }
+
+        SonobouysRemaining = MaxSonobouys;
+        DepthChargesRemaining = MaxDepthCharges;
+        PlaceSubmarine();
+        Messenger.Broadcast(GameEvent.ItemCountChanged);
+    }
+
+    public void PlaceSensor(Vector2 mousePosition)
+    {
+        if (SonobouysRemaining > 0)
+        {
+            if (lastSonobouy)
+            {
+                Destroy(lastSonobouy);
+            }
+
+            Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
+            lastSonobouy = newSonobouy;
+            newSonobouy.transform.SetParent(transform);
+            sonobouysRemaining--;
+            Messenger.Broadcast(GameEvent.ItemCountChanged);
+
+            MyParamsAudio nParams = nMAudio.GetParams(
+                screenPosition, nLocSubmarine,
+                maxBoardLimit - minBoardLimit,
+                maxBoardLimit - minBoardLimit);
+            nMAudio.PlayAudio1(nParams.Pan, 0, 0, 1);
+            nMAudio.PlayAudio2(nParams, nParams.Delay);
+        }
+        else
+        {
+            // Play Empty Sound
+        }
+    }
+
+    private void PlaceSubmarine()
+    {
+        nLocSubmarine = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
+        Submarine = Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
+    }
+
+    public void FireDepthCharge(Vector2 mousePosition)
+    {
+        Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        depthChargesRemaining--;
+        depthCharge = Instantiate(nPrefabMissile, screenPosition, Quaternion.identity);
+        Destroy(depthCharge, 1.0f);
+
+        if (IsHit(screenPosition, nLocSubmarine, nRadiusDefault))
+        {
+            Submarine.GetComponent<Submarine>().RecordHit();
+            Messenger.Broadcast(GameEvent.SubmarineHit);
+        }
+    }
+
+    public bool IsHit(Vector2 nLocSpawn, Vector2 nLocTarget, float nRadius = 0)
     {
         if (nRadius == 0)
+        {
             nRadius = nRadiusDefault;
+        }
 
         if (Vector2.Distance(nLocSpawn, nLocTarget) <= nRadius)
+        {
             return true;
-
-        return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
