@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    public float nClickDoubleTime = 0.8f;
+    public float depthChargeHoldButtonDuration = 0.8f;
 
-	private BoardManager board;
-	private Vector3 mousePosition;
-	private float nTimer;
-	private bool hasFirstClick;
+    private BoardManager board;
+    private Vector3 mousePosition;
+    private float buttonPressTime;
 
     void Update()
     {
@@ -48,31 +47,23 @@ public class InputController : MonoBehaviour
 
     private void UpdateGame()
     {
-		if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-			mousePosition = Input.mousePosition;
+            buttonPressTime = Time.time;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            float holdTime = Time.time - buttonPressTime;
 
-			if (hasFirstClick)
+            if (holdTime > depthChargeHoldButtonDuration)
             {
-                if (Time.time - nTimer <= nClickDoubleTime)
-                {
-                    GameManager.Instance.Board.FireDepthCharge(mousePosition);
-                }
+                Debug.Log("Fire depth charge " + holdTime);
+                GameManager.Instance.Board.FireDepthCharge(Input.mousePosition);
             }
             else
             {
-                hasFirstClick = true;
-                nTimer = Time.time;
-            }
-        }
-
-        // Restting if second click past timer, and then doing single click action
-        if (hasFirstClick)
-        {
-            if (Time.time - nTimer > nClickDoubleTime)
-            {
-                hasFirstClick = false;
-                GameManager.Instance.Board.PlaceSensor(mousePosition);
+                Debug.Log("Fire sonobouy " + holdTime);
+                GameManager.Instance.Board.PlaceSensor(Input.mousePosition);
             }
         }
     }
