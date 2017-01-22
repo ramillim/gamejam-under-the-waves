@@ -198,11 +198,17 @@ public class BoardManager : MonoBehaviour
 
             if (DepthChargesRemaining == 0)
             {
-                Messenger.Broadcast(GameEvent.GameLost);
+                StartCoroutine(CallGameLost(1.2f));
+                //Messenger.Broadcast(GameEvent.GameLost);
             }
         }
     }
 
+    private IEnumerator CallGameLost(float nWaitTime)
+    {
+        yield return new WaitForSeconds(nWaitTime);
+        Messenger.Broadcast(GameEvent.GameLost);
+    }
     public bool IsHit(Vector2 nLocSpawn, Vector2 nLocTarget, float nRadius = 0)
     {
         if (nRadius == 0)
