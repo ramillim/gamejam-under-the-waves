@@ -116,7 +116,7 @@ RectTransform:
   m_GameObject: {fileID: 817598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1400966748}
   m_RootOrder: 0
@@ -1314,7 +1314,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -12.25
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -1872,6 +1872,8 @@ MonoBehaviour:
     type: 2}
   submarinePrefab: {fileID: 1788526000880774, guid: b36a2803c6f7245c0b10276de7a72fac,
     type: 2}
+  missPrefab: {fileID: 1094807428132030, guid: 24d9eb438fa854c2c8820ffa5721f701, type: 2}
+  hitPrefab: {fileID: 1564979328501156, guid: 09abf1d2a4c0144f1b678b857e0cdec9, type: 2}
   maxDepthCharges: 3
   maxSonobouys: 10
   nGOaudioManager: {fileID: 647076903}
@@ -2216,7 +2218,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -22.875
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -2226,7 +2228,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 35.75
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -2358,6 +2360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depthChargeHoldButtonDuration: 0.8
+  minHoldTimeForChargingSound: 0.3
 --- !u!1 &1791803429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,7 +2597,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -22.875
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -2604,7 +2607,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 35.75
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
@@ -2824,7 +2827,7 @@ Prefab:
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -12.25
       objectReference: {fileID: 0}
     - target: {fileID: 224222169613903376, guid: 59c8086ac621248faaf6dc0a60785ff2,
         type: 2}
