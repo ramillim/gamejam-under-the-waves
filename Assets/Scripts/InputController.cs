@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-	private BoardManager board;
-	public float nClickDoubleTime = 0.8f;
-	public bool bClickChk;
-	public float nTimer;
+    private BoardManager board;
+    public float nClickDoubleTime = 0.8f;
+    public bool bClickChk;
+    public float nTimer;
 
-	void Update()
-	{
-		switch (GameManager.Instance.GameState)
-		{
-			case GameState.Title:
+    void Update()
+    {
+        switch (GameManager.Instance.GameState)
+        {
+            case GameState.Title:
                 PressToLoadInstructions();
-				break;
+                break;
             case GameState.Instructions:
                 PressToStart();
                 break;
-			case GameState.Game:
-				UpdateGame();
-				break;
-			case GameState.GameOver:
+            case GameState.Game:
+                UpdateGame();
+                break;
+            case GameState.GameOver:
                 PressToStart();
-				break;
-		}
-	}
+                break;
+        }
+    }
 
     private void PressToLoadInstructions()
     {
@@ -37,39 +37,39 @@ public class InputController : MonoBehaviour
     }
 
     private void PressToStart()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			GameManager.Instance.StartNewGame();
-		}
-	}
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.StartNewGame();
+        }
+    }
 
-	private void UpdateGame()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (bClickChk)
-			{
-				if (Time.time - nTimer <= nClickDoubleTime)
-				{
+    private void UpdateGame()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (bClickChk)
+            {
+                if (Time.time - nTimer <= nClickDoubleTime)
+                {
                     GameManager.Instance.Board.SpawnMissile(Input.mousePosition);
-				}
-			}
-			else
-			{
-				bClickChk = true;
-				nTimer = Time.time;
-			}
-		}
+                }
+            }
+            else
+            {
+                bClickChk = true;
+                nTimer = Time.time;
+            }
+        }
 
-		// Restting if second click past timer, and then doing single click action
-		if (bClickChk)
-		{
-			if (Time.time - nTimer > nClickDoubleTime)
-			{
-				bClickChk = false;
+        // Restting if second click past timer, and then doing single click action
+        if (bClickChk)
+        {
+            if (Time.time - nTimer > nClickDoubleTime)
+            {
+                bClickChk = false;
                 GameManager.Instance.Board.PlaceSensor(Input.mousePosition);
-			}
-		}
-	}
+            }
+        }
+    }
 }
