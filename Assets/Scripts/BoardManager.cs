@@ -175,6 +175,7 @@ public class BoardManager : MonoBehaviour
         depthChargesRemaining--;
         depthCharge = Instantiate(nPrefabMissile, screenPosition, Quaternion.identity);
         Destroy(depthCharge, 1.0f);
+		Messenger.Broadcast(GameEvent.ItemCountChanged);
 
         if (IsHit(screenPosition, nLocSubmarine, nRadiusDefault))
         {
