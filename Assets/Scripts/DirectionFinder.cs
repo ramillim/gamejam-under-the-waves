@@ -1,20 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DirectionFinder : MonoBehaviour
 {
 	private GameObject target;
-	private AudioManager audioManager;
-	private AudioSource audioSource;
 
-	void Awake()
-	{
-		audioManager = GetComponent<AudioManager>();
-		audioSource = GetComponent<AudioSource>();
-	}
-
-	void Start()
+    void Start()
 	{
 		target = GameObject.FindWithTag("Target");
 		FindDirection();
@@ -25,6 +17,7 @@ public class DirectionFinder : MonoBehaviour
 		var targetPos = target.transform.position;
 		Vector2 heading = targetPos - transform.position;
 		var distance = heading.magnitude;
+        Debug.Log(distance);
 		Messenger<float, Vector2>.Broadcast(GameEvent.DeploySonobouy, distance, heading);
 	}
 }
