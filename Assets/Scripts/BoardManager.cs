@@ -132,19 +132,46 @@ public class BoardManager : MonoBehaviour
         Messenger.Broadcast(GameEvent.ItemCountChanged);
     }
 
+    public void SonarInstantiate(Vector2 screenPosition)
+    {
+        GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
+        newSonobouy.transform.SetParent(transform);
+    }
+
+    IEnumerator SonarInstantiateMult(Vector2 screenPosition, float nRepeatRate)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
+            newSonobouy.transform.SetParent(transform);
+            yield return new WaitForSeconds(nRepeatRate);
+        }
+    }
+
     public void PlaceSensor(Vector2 mousePosition)
     {
         if (SonobouysRemaining > 0)
         {
-            if (lastSonobouy)
-            {
-                Destroy(lastSonobouy);
-            }
+            //if (lastSonobouy)
+            //{
+            //    Destroy(lastSonobouy);
+            //}
 
             Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-            lastSonobouy = newSonobouy;
-            newSonobouy.transform.SetParent(transform);
+
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    //yield WaitForSeconds(0.2f);
+            //    InvokeRepeating("SonarInstantiate(screenPosition)", 0.0f, 0.2f);
+
+            //}
+            //CancelInvoke();
+            StartCoroutine(SonarInstantiateMult(screenPosition, 0.2f));
+            //GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
+            //// lastSonobouy = newSonobouy;
+            //newSonobouy.transform.SetParent(transform);
+
+
             sonobouysRemaining--;
             Messenger.Broadcast(GameEvent.ItemCountChanged);
 
