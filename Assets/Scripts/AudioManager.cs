@@ -58,9 +58,13 @@ public class AudioManager : MonoBehaviour
     public void AudioPlay(AudioType nAudioType, float nPan = 0,   float nVol = 1,float nDelay = 0)
 	{
         AudioSource nAudioSource = GetAudioType(nAudioType);
-        nAudioSource.panStereo = nPan;
-		nAudioSource.volume = nVol;
-		nAudioSource.PlayDelayed(nDelay);
+        if (nAudioSource != null)
+        {
+            nAudioSource.panStereo = nPan;
+            nAudioSource.volume = nVol;
+            nAudioSource.PlayDelayed(nDelay);
+        }
+
 	}
 
 	public void AudioPlay(AudioType nAudioType, MyParamsAudio nParams, float nDelay = 0)
@@ -102,6 +106,11 @@ public class AudioManager : MonoBehaviour
         }
 
         return curAudio;
+    }
+
+    public void AudioPlayCharge()
+    {
+        AudioPlay(AudioManager.AudioType.Charging);
     }
 }
 

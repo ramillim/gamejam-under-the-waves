@@ -87,7 +87,7 @@ public class InputController : MonoBehaviour
                  (Time.time - buttonPressTime > minHoldTimeForChargingSound))
         {
             isCharging = true;
-            // Play Sound here
+            GameManager.Instance.Board.AudioPlayCharge();
         }
     }
 }

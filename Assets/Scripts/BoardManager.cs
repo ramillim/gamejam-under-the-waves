@@ -21,7 +21,7 @@ public class BoardManager : MonoBehaviour
 
     private int sonobouysRemaining;
     private int depthChargesRemaining;
-    private GameObject lastSonobouy;
+    private GameObject lastSonobouy = null;
 
 
     // Audio
@@ -32,7 +32,7 @@ public class BoardManager : MonoBehaviour
 
     // Missile (Depth Charge)
     public GameObject nPrefabMissile;
-    public float nRadiusDefault = 0.2f;
+    public float nRadiusDefault = 1.0f;
 
     private GameObject depthCharge;
 
@@ -218,5 +218,10 @@ public class BoardManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void AudioPlayCharge()
+    {
+        nMAudio.AudioPlayCharge();
     }
 }
