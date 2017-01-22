@@ -8,6 +8,8 @@ public class BoardManager : MonoBehaviour
     public float maxBoardLimit = 4.8f;
     public GameObject sonobouyPrefab;
     public GameObject submarinePrefab;
+    public GameObject missPrefab;
+    public GameObject hitPrefab;
 
     private GameObject submarine;
 
@@ -132,13 +134,7 @@ public class BoardManager : MonoBehaviour
         Messenger.Broadcast(GameEvent.ItemCountChanged);
     }
 
-    public void SonarInstantiate(Vector2 screenPosition)
-    {
-        GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-        newSonobouy.transform.SetParent(transform);
-    }
-
-    IEnumerator SonarInstantiateMult(Vector2 screenPosition, float nRepeatRate, int nNum)
+    IEnumerator InstantiateMultipleSonars(Vector2 screenPosition, float nRepeatRate, int nNum)
     {
         for (int i = 0; i < nNum; i++)
         {
@@ -153,9 +149,7 @@ public class BoardManager : MonoBehaviour
         if (SonobouysRemaining > 0)
         {
             Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-            StartCoroutine(SonarInstantiateMult(screenPosition, 0.22f, 4));
-
+            StartCoroutine(InstantiateMultipleSonars(screenPosition, 0.22f, 4));
 
             sonobouysRemaining--;
             Messenger.Broadcast(GameEvent.ItemCountChanged);
@@ -195,8 +189,13 @@ public class BoardManager : MonoBehaviour
         {
             nMAudio.AudioPlay(AudioManager.AudioType.SubKill, 0, 1,1);
             Submarine.GetComponent<Submarine>().RecordHit();
+            Instantiate(hitPrefab, nLocSubmarine, Quaternion.identity);
             Messenger.Broadcast(GameEvent.SubmarineHit);
-        } 
+        }
+        else
+        {
+            Instantiate(missPrefab, screenPosition, Quaternion.identity);
+        }
     }
 
     public bool IsHit(Vector2 nLocSpawn, Vector2 nLocTarget, float nRadius = 0)

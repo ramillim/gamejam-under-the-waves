@@ -5,10 +5,13 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
     public float depthChargeHoldButtonDuration = 0.8f;
+    public float minHoldTimeForChargingSound = 0.3f;
 
     private BoardManager board;
     private Vector3 mousePosition;
     private float buttonPressTime;
+    private bool isHolding;
+    private bool isCharging;
 
     void Update()
     {
@@ -22,6 +25,9 @@ public class InputController : MonoBehaviour
                 break;
             case GameState.Game:
                 UpdateGame();
+                break;
+            case GameState.GameEndAnimation:
+                PressToLoadGameOver();
                 break;
             case GameState.GameOver:
                 PressToStart();
@@ -45,11 +51,20 @@ public class InputController : MonoBehaviour
         }
     }
 
+    private void PressToLoadGameOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.LoadGameOverScreen();
+        }
+    }
+
     private void UpdateGame()
     {
         if (Input.GetMouseButtonDown(0))
         {
             buttonPressTime = Time.time;
+            isHolding = true;
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -65,6 +80,17 @@ public class InputController : MonoBehaviour
                 Debug.Log("Fire sonobouy " + holdTime);
                 GameManager.Instance.Board.PlaceSensor(Input.mousePosition);
             }
+
+            isCharging = false;
+            isHolding = false;
+        }
+        else if (!isCharging &&
+                 isHolding &&
+                 (Time.time - buttonPressTime > minHoldTimeForChargingSound))
+        {
+            isCharging = true;
+            Debug.Log("Play charging sound");
+            // Play Sound here
         }
     }
 }
