@@ -165,7 +165,7 @@ public class BoardManager : MonoBehaviour
     {
         nLocSubmarine = new Vector2(Random.Range(minBoardLimit, maxBoardLimit), Random.Range(minBoardLimit, maxBoardLimit));
         Submarine = Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
-		Submarine.transform.SetParent(transform);
+        Submarine.transform.SetParent(transform);
     }
 
     public void FireDepthCharge(Vector2 mousePosition)
@@ -175,7 +175,7 @@ public class BoardManager : MonoBehaviour
         depthChargesRemaining--;
         depthCharge = Instantiate(nPrefabMissile, screenPosition, Quaternion.identity);
         Destroy(depthCharge, 1.0f);
-		Messenger.Broadcast(GameEvent.ItemCountChanged);
+        Messenger.Broadcast(GameEvent.ItemCountChanged);
 
         if (IsHit(screenPosition, nLocSubmarine, nRadiusDefault))
         {
