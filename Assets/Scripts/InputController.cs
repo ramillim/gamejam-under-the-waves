@@ -67,7 +67,7 @@ public class InputController : MonoBehaviour
             isHolding = true;
             curmousePosition = Input.mousePosition;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (isHolding && Input.GetMouseButtonUp(0))
         {
             float holdTime = Time.time - buttonPressTime;
 
