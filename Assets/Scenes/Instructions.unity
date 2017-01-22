@@ -524,9 +524,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Locate and kill the submarine using your auditory senses. The game also
-    works as both a challenging puzzle game and a relaxation game since its forces
-    users to slow down and listen.
+  m_Text: "Locate and kill the submarine using your auditory senses. \n\nTap or click
+    once to launch a sonobouy. Hold and release to fire a depth charge."
 --- !u!222 &821545743
 CanvasRenderer:
   m_ObjectHideFlags: 0
