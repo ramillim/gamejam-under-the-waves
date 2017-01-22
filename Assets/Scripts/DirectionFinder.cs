@@ -17,7 +17,6 @@ public class DirectionFinder : MonoBehaviour
 		var targetPos = target.transform.position;
 		Vector2 heading = targetPos - transform.position;
 		var distance = heading.magnitude;
-        Debug.Log(distance);
 		Messenger<float, Vector2>.Broadcast(GameEvent.DeploySonobouy, distance, heading);
 	}
 }

@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public enum GameState
 {
-	Intro,
+	Title,
+    Instructions,
 	Game,
 	GameOver
 }
@@ -31,8 +32,8 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			return board;
-		}
+            return board;
+        }
 
 		private set
 		{
@@ -78,22 +79,17 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
-		board = GetComponent<BoardManager>();
-
 		DontDestroyOnLoad(transform.gameObject);
-	}
+    }
 
-	void Start()
-	{
-		StartNewGame();
-	}
-
-	void Update()
+    void Update()
 	{
 		switch (gameState)
 		{
-			case GameState.Intro:
+			case GameState.Title:
 				break;
+            case GameState.Instructions:
+                break;
 			case GameState.Game:
 				break;
 			case GameState.GameOver:
@@ -101,19 +97,33 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void StartNewGame()
+    public void SetBoardManager(BoardManager boardManager)
+    {
+        Board = boardManager;
+    }
+
+    public void LoadInstructions()
+    {
+        GameState = GameState.Instructions;
+        SceneManager.LoadSceneAsync("Instructions");
+    }
+
+    public void StartNewGame()
 	{
 		GameState = GameState.Game;
-		SceneManager.LoadScene("Game");
-		Board.ResetBoard();
+		SceneManager.LoadSceneAsync("Game");
 	}
 
 	private bool IsGameOver()
 	{
 		if (Board.DepthChargesRemaining <= 0)
 		{
-
+            return true;
 		}
+        else
+        {
+            return false;
+        }
 	}
 
 	private void WinGame()

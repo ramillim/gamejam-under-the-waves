@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,31 +9,36 @@ public class InputController : MonoBehaviour
 	public bool bClickChk;
 	public float nTimer;
 
-	void Start()
-	{
-		board = GameManager.Instance.Board;
-	}
-
-
 	void Update()
 	{
 		switch (GameManager.Instance.GameState)
 		{
-			case GameState.Intro:
-				UpdateIntro();
+			case GameState.Title:
+                PressToLoadInstructions();
 				break;
+            case GameState.Instructions:
+                PressToStart();
+                break;
 			case GameState.Game:
 				UpdateGame();
 				break;
 			case GameState.GameOver:
-				UpdateGameOver();
+                PressToStart();
 				break;
 		}
 	}
 
-	private void UpdateIntro()
+    private void PressToLoadInstructions()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.LoadInstructions();
+        }
+    }
+
+    private void PressToStart()
 	{
-		if (Input.anyKey)
+		if (Input.GetMouseButtonDown(0))
 		{
 			GameManager.Instance.StartNewGame();
 		}
@@ -47,7 +52,7 @@ public class InputController : MonoBehaviour
 			{
 				if (Time.time - nTimer <= nClickDoubleTime)
 				{
-					board.SpawnMissile(Input.mousePosition);
+                    GameManager.Instance.Board.SpawnMissile(Input.mousePosition);
 				}
 			}
 			else
@@ -63,16 +68,8 @@ public class InputController : MonoBehaviour
 			if (Time.time - nTimer > nClickDoubleTime)
 			{
 				bClickChk = false;
-				board.PlaceSensor(Input.mousePosition);
+                GameManager.Instance.Board.PlaceSensor(Input.mousePosition);
 			}
-		}
-	}
-
-	private void UpdateGameOver()
-	{
-		if (Input.anyKey)
-		{
-			GameManager.Instance.StartNewGame();
 		}
 	}
 }

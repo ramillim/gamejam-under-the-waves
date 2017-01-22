@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 688560703}
   - component: {fileID: 688560702}
   - component: {fileID: 688560701}
-  - component: {fileID: 688560706}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -223,20 +222,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &688560706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 688560700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60491943174c43b38d5ddc5bc87378b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nClickDoubleTime: 0.8
-  bClickChk: 0
-  nTimer: 0
 --- !u!1 &770167105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1645032558}
   - component: {fileID: 1645032557}
+  - component: {fileID: 1645032560}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1501,7 +1487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16069c0685a9f4678a296da88eeb1a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 2
+  gameState: 0
 --- !u!4 &1645032558
 Transform:
   m_ObjectHideFlags: 0
@@ -1515,6 +1501,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1645032560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1645032556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60491943174c43b38d5ddc5bc87378b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nClickDoubleTime: 0.8
+  bClickChk: 0
+  nTimer: 0
 --- !u!1 &1791803429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,6 +1527,7 @@ GameObject:
   - component: {fileID: 1791803432}
   - component: {fileID: 1791803431}
   - component: {fileID: 1791803434}
+  - component: {fileID: 1791803435}
   m_Layer: 5
   m_Name: Debug Panel
   m_TagString: Untagged
@@ -1622,6 +1623,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceText: {fileID: 1342849321}
   directionText: {fileID: 1644872257}
+--- !u!225 &1791803435
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1791803429}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1842486553
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,6 @@ public class BoardManager : MonoBehaviour
 	public float maxBoardLimit = 4.8f;
 	public GameObject sonobouyPrefab;
 	public GameObject submarinePrefab;
-	public GameObject objectContainer;
 
 	private GameObject submarine;
 
@@ -20,7 +19,8 @@ public class BoardManager : MonoBehaviour
 
 	private int sonobouysRemaining;
 	private int depthChargesRemaining;
-	private List<GameObject> sonobouyList = new List<GameObject>();
+    private GameObject lastSonobouy;
+
 
     // Audio
     public GameObject nGOaudioManager;
@@ -33,19 +33,6 @@ public class BoardManager : MonoBehaviour
 	public float nRadiusDefault = 0.2f;
 
 	private GameObject nMissile;
-
-    public List<GameObject> SonobouyList
-	{
-		get
-		{
-			return sonobouyList;
-		}
-
-		set
-		{
-			sonobouyList = value;
-		}
-	}
 
 	public int MaxDepthCharges
 	{
@@ -112,38 +99,47 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 
-	void Start()
-	{
-		SonobouysRemaining = MaxSonobouys;
+
+    void Awake()
+    {
         nMAudio = nGOaudioManager.GetComponent<AudioManager>();
-        //nRadiusDefault = 0.2f;
+        GameManager.Instance.SetBoardManager(this);
     }
 
-	/// <summary>
-	/// Initialize the board at the start of a new game.
-	/// </summary>
-	public void ResetBoard()
+	void Start()
 	{
-		SonobouysRemaining = MaxSonobouys;
-		DestroySonobouys();
-		PlaceSubmarine();
-		Messenger.Broadcast(GameEvent.ItemCountChanged);
-	}
+        ResetBoard();
+    }
 
-	public void AddSonobouy(GameObject newSonobouy)
+    /// <summary>
+    /// Initialize the board at the start of a new game.
+    /// </summary>
+    public void ResetBoard()
 	{
-		SonobouyList.Add(newSonobouy);
-	}
+        if (lastSonobouy)
+        {
+            Destroy(lastSonobouy);
+        }
+
+        SonobouysRemaining = MaxSonobouys;
+        DepthChargesRemaining = MaxDepthCharges;
+		PlaceSubmarine();
+        Messenger.Broadcast(GameEvent.ItemCountChanged);
+    }
 
 	public void PlaceSensor(Vector2 mousePosition)
 	{
 		if (SonobouysRemaining > 0)
 		{
-			DestroySonobouys();
-			Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            if (lastSonobouy)
+            {
+                Destroy(lastSonobouy);
+            }
+
+            Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 			GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-			GameManager.Instance.Board.AddSonobouy(newSonobouy);
-			newSonobouy.transform.SetParent(objectContainer.transform);
+            lastSonobouy = newSonobouy;
+			newSonobouy.transform.SetParent(transform);
 			sonobouysRemaining--;
 			Messenger.Broadcast(GameEvent.ItemCountChanged);
 
@@ -166,16 +162,6 @@ public class BoardManager : MonoBehaviour
         Submarine = Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
 	}
 
-	private void DestroySonobouys()
-	{
-		for (int i = 0; i < SonobouyList.Count; i++)
-		{
-			var sonoBouy = SonobouyList[i];
-			SonobouyList.RemoveAt(i);
-			Destroy(sonoBouy);
-		}
-	}
-
     public void SpawnMissile(Vector2 nLocSpawn)
     {
         nMissile = Instantiate(nPrefabMissile, nLocSpawn, Quaternion.identity);
@@ -183,7 +169,7 @@ public class BoardManager : MonoBehaviour
 
 		if (HitCheck(nLocSpawn, nLocSubmarine, nRadiusDefault))
         {
-			Submarine.GetComponent<Submarine>.RecordHit();
+			Submarine.GetComponent<Submarine>().RecordHit();
             //GameOver();
         }
     }
