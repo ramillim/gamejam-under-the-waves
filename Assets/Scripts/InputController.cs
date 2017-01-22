@@ -8,7 +8,7 @@ public class InputController : MonoBehaviour
     public float minHoldTimeForChargingSound = 0.3f;
 
     private BoardManager board;
-    private Vector3 mousePosition;
+    private Vector3 curmousePosition;
     private float buttonPressTime;
     private bool isHolding;
     private bool isCharging;
@@ -65,6 +65,7 @@ public class InputController : MonoBehaviour
         {
             buttonPressTime = Time.time;
             isHolding = true;
+            curmousePosition = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -72,11 +73,11 @@ public class InputController : MonoBehaviour
 
             if (holdTime > depthChargeHoldButtonDuration)
             {
-                GameManager.Instance.Board.FireDepthCharge(Input.mousePosition);
+                GameManager.Instance.Board.FireDepthCharge(curmousePosition);
             }
             else
             {
-                GameManager.Instance.Board.PlaceSensor(Input.mousePosition);
+                GameManager.Instance.Board.PlaceSensor(curmousePosition);
             }
 
             isCharging = false;
