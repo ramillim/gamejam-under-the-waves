@@ -26,6 +26,9 @@ public class InputController : MonoBehaviour
             case GameState.Game:
                 UpdateGame();
                 break;
+            case GameState.GameEndAnimation:
+                PressToLoadGameOver();
+                break;
             case GameState.GameOver:
                 PressToStart();
                 break;
@@ -45,6 +48,14 @@ public class InputController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GameManager.Instance.StartNewGame();
+        }
+    }
+
+    private void PressToLoadGameOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.LoadGameOverScreen();
         }
     }
 

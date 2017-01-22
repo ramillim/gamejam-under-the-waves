@@ -9,6 +9,7 @@ public class BoardManager : MonoBehaviour
     public GameObject sonobouyPrefab;
     public GameObject submarinePrefab;
     public GameObject missPrefab;
+    public GameObject hitPrefab;
 
     private GameObject submarine;
 
@@ -181,6 +182,7 @@ public class BoardManager : MonoBehaviour
         if (IsHit(screenPosition, nLocSubmarine, nRadiusDefault))
         {
             Submarine.GetComponent<Submarine>().RecordHit();
+            Instantiate(hitPrefab, nLocSubmarine, Quaternion.identity);
             Messenger.Broadcast(GameEvent.SubmarineHit);
         }
         else

@@ -8,6 +8,7 @@ public enum GameState
     Title,
     Instructions,
     Game,
+    GameEndAnimation,
     GameOver
 }
 
@@ -103,6 +104,8 @@ public class GameManager : MonoBehaviour
                     OnGameOver();
                 }
                 break;
+            case GameState.GameEndAnimation:
+                break;
             case GameState.GameOver:
                 break;
         }
@@ -130,7 +133,7 @@ public class GameManager : MonoBehaviour
     {
         if (Board && Board.DepthChargesRemaining <= 0) // TODO: Implement other game over conditions
         {
-			Debug.Log("Game Over");
+            Debug.Log("Game Over");
             return true;
         }
         else
@@ -143,12 +146,12 @@ public class GameManager : MonoBehaviour
     {
         if (Board.Submarine.GetComponent<Submarine>().IsHit)
         {
-			Debug.Log("Win");
+            Debug.Log("Win");
             IsWon = true;
         }
         else
         {
-			Debug.Log("Lose");
+            Debug.Log("Lose");
             IsWon = false;
         }
 
@@ -157,7 +160,12 @@ public class GameManager : MonoBehaviour
 
     private void EndGame()
     {
+        GameState = GameState.GameEndAnimation;
+    }
+
+    public void LoadGameOverScreen()
+    {
         GameState = GameState.GameOver;
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadSceneAsync("GameOver");
     }
 }
