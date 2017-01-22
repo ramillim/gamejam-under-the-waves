@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 98d8d559701064a028eba9094c49bb8f
-timeCreated: 1485043892
+guid: 5065ed3aaec564f4db03cbceb33403a7
+timeCreated: 1485099437
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Splashsprite_0
-    21300002: Splashsprite_1
-    21300004: Splashsprite_2
-    21300006: Splashsprite_3
-    21300008: Splashsprite_4
-    21300010: Splashsprite_5
-    21300012: Splashsprite_6
+    21300000: Splash3_0
+    21300002: Splash3_1
+    21300004: Splash3_2
+    21300006: Splash3_3
+    21300008: Splash3_4
+    21300010: Splash3_5
+    21300012: Splash3_6
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -101,93 +101,93 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Splashsprite_0
+      name: Splash3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 39
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Splashsprite_1
+      name: Splash3_1
       rect:
         serializedVersion: 2
         x: 39
         y: 0
         width: 39
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Splashsprite_2
+      name: Splash3_2
       rect:
         serializedVersion: 2
         x: 78
         y: 0
         width: 39
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Splashsprite_3
+      name: Splash3_3
       rect:
         serializedVersion: 2
         x: 117
         y: 0
         width: 39
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Splashsprite_4
+      name: Splash3_4
       rect:
         serializedVersion: 2
         x: 156
         y: 0
         width: 39
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Splashsprite_5
+      name: Splash3_5
       rect:
         serializedVersion: 2
         x: 195
         y: 0
         width: 39
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Splashsprite_6
+      name: Splash3_6
       rect:
         serializedVersion: 2
         x: 234
         y: 0
         width: 39
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

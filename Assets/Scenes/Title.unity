@@ -373,8 +373,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nClickDoubleTime: 0.8
-  bClickChk: 0
-  nTimer: 0
 --- !u!1 &759995672
 GameObject:
   m_ObjectHideFlags: 0
