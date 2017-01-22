@@ -26,7 +26,7 @@ public class BoardManager : MonoBehaviour
     public GameObject nGOaudioManager;
 
     // Missile (Depth Charge)
-    float nRadiusDefault;
+    float nRadiusDefault = 0.2f;
     public GameObject nPrefabMissile;
     GameObject nMissile;
 
@@ -99,7 +99,7 @@ public class BoardManager : MonoBehaviour
 	{
 		SonobouysRemaining = MaxSonobouys;
         nMAudio = nGOaudioManager.GetComponent<AudioManager>();
-        nRadiusDefault = 0.2f;
+        //nRadiusDefault = 0.2f;
     }
 
 	/// <summary>

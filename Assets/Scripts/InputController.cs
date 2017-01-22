@@ -5,14 +5,14 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
 	private BoardManager board;
-    float nClickDoubleTime;
-    bool bClickChk;
-    float nTimer;
+    float nClickDoubleTime = 0.8f;
+    public bool bClickChk;
+    public float nTimer;
 
 	void Start()
 	{
 		board = GameManager.Instance.Board;
-        nClickDoubleTime = 0.8f;
+        //nClickDoubleTime = 0.8f;
 	}
 
 
