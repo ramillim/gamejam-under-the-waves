@@ -108,6 +108,14 @@ public class GameManager : MonoBehaviour
 		Board.ResetBoard();
 	}
 
+	private bool IsGameOver()
+	{
+		if (Board.DepthChargesRemaining <= 0)
+		{
+
+		}
+	}
+
 	private void WinGame()
 	{
 		IsWon = true;
