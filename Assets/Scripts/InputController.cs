@@ -52,7 +52,7 @@ public class InputController : MonoBehaviour
             {
                 if (Time.time - nTimer <= nClickDoubleTime)
                 {
-                    GameManager.Instance.Board.SpawnMissile(Input.mousePosition);
+                    GameManager.Instance.Board.FireDepthCharge(Input.mousePosition);
                 }
             }
             else

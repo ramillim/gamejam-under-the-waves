@@ -32,7 +32,7 @@ public class BoardManager : MonoBehaviour
     public GameObject nPrefabMissile;
     public float nRadiusDefault = 0.2f;
 
-    private GameObject nMissile;
+    private GameObject depthCharge;
 
     public int MaxDepthCharges
     {
@@ -121,6 +121,11 @@ public class BoardManager : MonoBehaviour
             Destroy(lastSonobouy);
         }
 
+        if (Submarine)
+        {
+            Destroy(Submarine);
+        }
+
         SonobouysRemaining = MaxSonobouys;
         DepthChargesRemaining = MaxDepthCharges;
         PlaceSubmarine();
@@ -162,26 +167,35 @@ public class BoardManager : MonoBehaviour
         Submarine = Instantiate(submarinePrefab, nLocSubmarine, Quaternion.identity);
     }
 
-    public void SpawnMissile(Vector2 nLocSpawn)
+    public void FireDepthCharge(Vector2 mousePosition)
     {
-        nMissile = Instantiate(nPrefabMissile, nLocSpawn, Quaternion.identity);
-        Destroy(nMissile, 1.0f);
+        Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        if (HitCheck(nLocSpawn, nLocSubmarine, nRadiusDefault))
+        depthChargesRemaining--;
+        depthCharge = Instantiate(nPrefabMissile, screenPosition, Quaternion.identity);
+        Destroy(depthCharge, 1.0f);
+
+        if (IsHit(screenPosition, nLocSubmarine, nRadiusDefault))
         {
             Submarine.GetComponent<Submarine>().RecordHit();
-            //GameOver();
+            Messenger.Broadcast(GameEvent.SubmarineHit);
         }
     }
 
-    public bool HitCheck(Vector2 nLocSpawn, Vector2 nLocTarget, float nRadius = 0)
+    public bool IsHit(Vector2 nLocSpawn, Vector2 nLocTarget, float nRadius = 0)
     {
         if (nRadius == 0)
+        {
             nRadius = nRadiusDefault;
+        }
 
         if (Vector2.Distance(nLocSpawn, nLocTarget) <= nRadius)
+        {
             return true;
-
-        return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

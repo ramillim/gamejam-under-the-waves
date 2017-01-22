@@ -5,97 +5,108 @@ using UnityEngine.SceneManagement;
 
 public enum GameState
 {
-	Title,
+    Title,
     Instructions,
-	Game,
-	GameOver
+    Game,
+    GameOver
 }
 
 public class GameManager : MonoBehaviour
 {
-	private static GameManager instance = null;
-	private BoardManager board;
-	private bool isWon = false;
+    private static GameManager instance = null;
+    private BoardManager board;
+    private bool isWon = false;
 
-	[SerializeField]
-	private GameState gameState;
+    [SerializeField]
+    private GameState gameState;
 
-	public static GameManager Instance
-	{
-		get
-		{
-			return instance;
-		}
-	}
+    public static GameManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
-	public BoardManager Board
-	{
-		get
-		{
+    public BoardManager Board
+    {
+        get
+        {
             return board;
         }
 
-		private set
-		{
-			board = value;
-		}
-	}
+        private set
+        {
+            board = value;
+        }
+    }
 
-	public GameState GameState
-	{
-		get
-		{
-			return gameState;
-		}
+    public GameState GameState
+    {
+        get
+        {
+            return gameState;
+        }
 
-		private set
-		{
-			gameState = value;
-		}
-	}
+        private set
+        {
+            gameState = value;
+        }
+    }
 
-	public bool IsWon
-	{
-		get
-		{
-			return isWon;
-		}
+    public bool IsWon
+    {
+        get
+        {
+            return isWon;
+        }
 
-		private set
-		{
-			isWon = value;
-		}
-	}
+        private set
+        {
+            isWon = value;
+        }
+    }
 
-	void Awake()
-	{
-		if (instance == null)
-		{
-			instance = this;
-		}
-		else if (instance != this)
-		{
-			Destroy(gameObject);
-			return;
-		}
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-		DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(transform.gameObject);
+
+        Messenger.AddListener(GameEvent.SubmarineHit, OnGameOver);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.SubmarineHit, OnGameOver);
     }
 
     void Update()
-	{
-		switch (gameState)
-		{
-			case GameState.Title:
-				break;
+    {
+        switch (gameState)
+        {
+            case GameState.Title:
+                break;
             case GameState.Instructions:
                 break;
-			case GameState.Game:
-				break;
-			case GameState.GameOver:
-				break;
-		}
-	}
+            case GameState.Game:
+                if (IsGameOver())
+                {
+                    OnGameOver();
+                }
+                break;
+            case GameState.GameOver:
+                break;
+        }
+    }
 
     public void SetBoardManager(BoardManager boardManager)
     {
@@ -109,36 +120,41 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartNewGame()
-	{
-		GameState = GameState.Game;
-		SceneManager.LoadSceneAsync("Game");
-	}
+    {
+        IsWon = false;
+        GameState = GameState.Game;
+        SceneManager.LoadSceneAsync("Game");
+    }
 
-	private bool IsGameOver()
-	{
-		if (Board.DepthChargesRemaining <= 0)
-		{
+    private bool IsGameOver()
+    {
+        if (Board && Board.DepthChargesRemaining <= 0) // TODO: Implement other game over conditions
+        {
             return true;
-		}
+        }
         else
         {
             return false;
         }
-	}
+    }
 
-	private void WinGame()
-	{
-		IsWon = true;
-	}
+    private void OnGameOver()
+    {
+        if (Board.Submarine.GetComponent<Submarine>().IsHit)
+        {
+            IsWon = true;
+        }
+        else
+        {
+            IsWon = false;
+        }
 
-	private void LoseGame()
-	{
-		IsWon = false;
-	}
+        EndGame();
+    }
 
-	private void EndGame()
-	{
-		GameState = GameState.GameOver;
-		SceneManager.LoadScene("Game Over");
-	}
+    private void EndGame()
+    {
+        GameState = GameState.GameOver;
+        SceneManager.LoadScene("Game Over");
+    }
 }
