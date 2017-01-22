@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource nAudioSource1;
-    private AudioSource nAudioSource2;
-    public GameObject nGOAudio1;
-    public GameObject nGOAudio2;
+    public AudioSource nAudioSourcePing1;
+    public  AudioSource nAudioSourcePing2;
+    public AudioSource nAudioSourceCharging;
+    public AudioSource nAudioSourceDeadCity;
+    public AudioSource nAudioSourceDepthSplash;
+    public AudioSource nAudioSourceEmptySound;
+    public AudioSource nAudioSourceGameStart;
+    public AudioSource nAudioSourceSubKill;
+
+    public enum AudioType
+    {
+        Ping1, Ping2, Charging, DeadCity, Depthsplash, EmptySound, GameStart, SubKill
+    }
 
     void Awake()
     {
-        nAudioSource1 = nGOAudio1.GetComponent<AudioSource>();
-        nAudioSource2 = nGOAudio2.GetComponent<AudioSource>();
     }    
 
     public MyParamsAudio GetParams(Vector2 v2SourceLoc, Vector2 v2TargetLoc, float nGridLengthX, float nGridLengthY)
@@ -46,53 +53,56 @@ public class AudioManager : MonoBehaviour
 
 		return nParamAudio;
 	}
+    
 
-    public void PlayAudio1(MyParamsAudio nParams, float nDelay = 0)
-    {
-        AudioPlay(nAudioSource1, nParams, nDelay);
-    }
-
-    public void PlayAudio1(float nPan = 0, float nPitch = 1, float nDelay = 0, float nVol = 1)
-    {
-        AudioPlay(nAudioSource1, nPan, nPitch,nDelay,nVol);
-    }
-
-    public void PlayAudio2(MyParamsAudio nParams, float nDelay = 0)
-    {
-        AudioPlay(nAudioSource2, nParams, nDelay);
-    }
-
-    public void PlayAudio2(float nPan = 0, float nPitch = 1, float nDelay = 0, float nVol = 1)
-    {
-        AudioPlay(nAudioSource2,nPan, nPitch, nDelay, nVol);
-    }
-
-
-    public void AudioPlay(AudioSource nAudioSource, float nPan = 0, float nPitch = 1, float nDelay = 0, float nVol = 1)
+    public void AudioPlay(AudioType nAudioType, float nPan = 0,   float nVol = 1,float nDelay = 0)
 	{
-        //nAudioSource.clip = nAudioClip;
+        AudioSource nAudioSource = GetAudioType(nAudioType);
         nAudioSource.panStereo = nPan;
 		nAudioSource.volume = nVol;
-		//nAudioSource.pitch = nPitch;
-
 		nAudioSource.PlayDelayed(nDelay);
 	}
 
-	public void AudioPlay(AudioSource nAudioSource, MyParamsAudio nParams, float nDelay = 0)
+	public void AudioPlay(AudioType nAudioType, MyParamsAudio nParams, float nDelay = 0)
 	{
-        //nAudioSource.clip = nAudioClip;
-        float nPan = nParams.Pan;
-		float nPitch = nParams.Pitch;
-		float nVol = nParams.Volume;
-
-		nAudioSource.panStereo = nPan;
-		nAudioSource.volume = nVol;
-		//nAudioSource.pitch = nPitch;
-
-        //Debug.Log(string.Format("Pan {0}, Pitch {1}, Delay {2}, Volume {3}",nPan,nPitch, nDelay,nVol));
-
-        nAudioSource.PlayDelayed(nDelay);
+        AudioPlay(nAudioType, nParams.Pan, nParams.Volume, nDelay);
 	}
+
+    AudioSource GetAudioType(AudioType nAudioType)
+    {
+        AudioSource curAudio = null;
+        switch (nAudioType)
+        {
+            case AudioType.Ping1:
+                curAudio = nAudioSourcePing1;
+                break;
+            case AudioType.Ping2:
+                curAudio = nAudioSourcePing2;
+                break;
+            case AudioType.Charging:
+                curAudio = nAudioSourceCharging;
+                break;
+            case AudioType.DeadCity:
+                curAudio = nAudioSourceDeadCity;
+                break;
+            case AudioType.Depthsplash:
+                curAudio = nAudioSourceDepthSplash;
+                break;
+            case AudioType.EmptySound:
+                curAudio = nAudioSourceEmptySound;
+                break;
+            case AudioType.GameStart:
+                curAudio = nAudioSourceGameStart;
+                break;
+            case AudioType.SubKill:
+                curAudio = nAudioSourceSubKill;
+                break;
+            default:
+                break;
+        }
+
+        return curAudio;
+    }
 }
 
 public class MyParamsAudio

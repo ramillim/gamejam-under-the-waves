@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4312092758811710}
   - component: {fileID: 95983860831378356}
   - component: {fileID: 212811956497777284}
+  - component: {fileID: 114035074117129936}
   m_Layer: 0
   m_Name: Sonar2
   m_TagString: Untagged
@@ -58,6 +59,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114035074117129936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1355051623442778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf0c40fd49a76f448b778e01fdf3071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nTimerStart: 0
+  nTimerThreshold: 1.1
 --- !u!212 &212811956497777284
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -90,6 +104,6 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 45a093971e856134d94efd2070946962, type: 3}
-  m_Color: {r: 0.986207, g: 1, b: 0, a: 0.46964872}
+  m_Color: {r: 0.986207, g: 1, b: 0, a: 0.14122552}
   m_FlipX: 0
   m_FlipY: 0

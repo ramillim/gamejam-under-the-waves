@@ -134,19 +134,23 @@ public class BoardManager : MonoBehaviour
         Messenger.Broadcast(GameEvent.ItemCountChanged);
     }
 
+    IEnumerator InstantiateMultipleSonars(Vector2 screenPosition, float nRepeatRate, int nNum)
+    {
+        for (int i = 0; i < nNum; i++)
+        {
+            GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
+            newSonobouy.transform.SetParent(transform);
+            yield return new WaitForSeconds(nRepeatRate);
+        }
+    }
+
     public void PlaceSensor(Vector2 mousePosition)
     {
         if (SonobouysRemaining > 0)
         {
-            if (lastSonobouy)
-            {
-                Destroy(lastSonobouy);
-            }
-
             Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-            lastSonobouy = newSonobouy;
-            newSonobouy.transform.SetParent(transform);
+            StartCoroutine(InstantiateMultipleSonars(screenPosition, 0.22f, 4));
+
             sonobouysRemaining--;
             Messenger.Broadcast(GameEvent.ItemCountChanged);
 
@@ -154,12 +158,13 @@ public class BoardManager : MonoBehaviour
                 screenPosition, nLocSubmarine,
                 maxBoardLimit - minBoardLimit,
                 maxBoardLimit - minBoardLimit);
-            nMAudio.PlayAudio1(nParams.Pan, 0, 0, 1);
-            nMAudio.PlayAudio2(nParams, nParams.Delay);
+            nMAudio.AudioPlay(AudioManager.AudioType.Ping1, 0, 1, 0);
+            nMAudio.AudioPlay(AudioManager.AudioType.Ping2, nParams, nParams.Delay);
         }
         else
         {
             // Play Empty Sound
+            nMAudio.AudioPlay(AudioManager.AudioType.EmptySound);
         }
     }
 
@@ -173,6 +178,7 @@ public class BoardManager : MonoBehaviour
     public void FireDepthCharge(Vector2 mousePosition)
     {
         Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        nMAudio.AudioPlay(AudioManager.AudioType.Depthsplash, 0, 1, 0);
 
         depthChargesRemaining--;
         depthCharge = Instantiate(nPrefabMissile, screenPosition, Quaternion.identity);
@@ -181,6 +187,7 @@ public class BoardManager : MonoBehaviour
 
         if (IsHit(screenPosition, nLocSubmarine, nRadiusDefault))
         {
+            nMAudio.AudioPlay(AudioManager.AudioType.SubKill, 0, 1,1);
             Submarine.GetComponent<Submarine>().RecordHit();
             Instantiate(hitPrefab, nLocSubmarine, Quaternion.identity);
             Messenger.Broadcast(GameEvent.SubmarineHit);
