@@ -10,6 +10,7 @@ public class BoardManager : MonoBehaviour
     public GameObject submarinePrefab;
     public GameObject missPrefab;
     public GameObject hitPrefab;
+    public CanvasGroup pressAnyKeyToContinue;
 
     private GameObject submarine;
 
@@ -191,6 +192,7 @@ public class BoardManager : MonoBehaviour
             Submarine.GetComponent<Submarine>().RecordHit();
             Instantiate(hitPrefab, nLocSubmarine, Quaternion.identity);
             Messenger.Broadcast(GameEvent.SubmarineHit);
+            pressAnyKeyToContinue.alpha = 1.0f;
         }
         else
         {
