@@ -1850,7 +1850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minBoardLimit: -4.8
   maxBoardLimit: 4.8
-  sonobouyPrefab: {fileID: 1468178460296512, guid: bd1c104afe9774509b7a262a66ea1650,
+  sonobouyPrefab: {fileID: 1355051623442778, guid: b6d4b8c1b25ad5743bb63d06fcc2a977,
     type: 2}
   submarinePrefab: {fileID: 1788526000880774, guid: b36a2803c6f7245c0b10276de7a72fac,
     type: 2}

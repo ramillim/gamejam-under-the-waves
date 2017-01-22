@@ -138,9 +138,9 @@ public class BoardManager : MonoBehaviour
         newSonobouy.transform.SetParent(transform);
     }
 
-    IEnumerator SonarInstantiateMult(Vector2 screenPosition, float nRepeatRate)
+    IEnumerator SonarInstantiateMult(Vector2 screenPosition, float nRepeatRate, int nNum)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < nNum; i++)
         {
             GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
             newSonobouy.transform.SetParent(transform);
@@ -152,24 +152,9 @@ public class BoardManager : MonoBehaviour
     {
         if (SonobouysRemaining > 0)
         {
-            //if (lastSonobouy)
-            //{
-            //    Destroy(lastSonobouy);
-            //}
-
             Vector2 screenPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    //yield WaitForSeconds(0.2f);
-            //    InvokeRepeating("SonarInstantiate(screenPosition)", 0.0f, 0.2f);
-
-            //}
-            //CancelInvoke();
-            StartCoroutine(SonarInstantiateMult(screenPosition, 0.2f));
-            //GameObject newSonobouy = Instantiate(sonobouyPrefab, screenPosition, Quaternion.identity);
-            //// lastSonobouy = newSonobouy;
-            //newSonobouy.transform.SetParent(transform);
+            StartCoroutine(SonarInstantiateMult(screenPosition, 0.22f, 4));
 
 
             sonobouysRemaining--;
