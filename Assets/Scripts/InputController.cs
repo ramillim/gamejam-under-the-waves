@@ -30,7 +30,7 @@ public class InputController : MonoBehaviour
                 PressToLoadGameOver();
                 break;
             case GameState.GameOver:
-                PressToStart();
+                ReturnToTitle();
                 break;
         }
     }
@@ -48,6 +48,14 @@ public class InputController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GameManager.Instance.StartNewGame();
+        }
+    }
+
+    private void ReturnToTitle()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.GoToTitle();
         }
     }
 

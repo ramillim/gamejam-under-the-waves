@@ -109,6 +109,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync("Game");
     }
 
+    public void GoToTitle()
+    {
+        IsWon = false;
+        GameState = GameState.Title;
+        SceneManager.LoadSceneAsync("Title");
+    }
+
     private void OnGameOver()
     {
         Debug.Log("Game Over");
